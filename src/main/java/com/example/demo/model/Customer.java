@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Customer {
+	//Test commit
 	
 	public Customer() {
 		// TODO Auto-generated constructor stub

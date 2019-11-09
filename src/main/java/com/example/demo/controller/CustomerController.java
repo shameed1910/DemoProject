@@ -29,7 +29,7 @@ public class CustomerController {
 		customerService.create(customer);
 	}
 
-	//To get the list of customers
+	//To get the list of customers information
 	@GetMapping(value="/getUsers")
 	public List<Customer> getCustomer(){
 		return customerService.getCustomer();

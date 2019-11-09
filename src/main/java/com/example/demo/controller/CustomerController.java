@@ -23,7 +23,7 @@ public class CustomerController {
 	
 	@Autowired
 	CustomerService customerService;
-
+//To insert the customer data into database
 	@PostMapping(value="/insert")
 	public void createCustomer(@RequestBody Customer customer){
 		customerService.create(customer);

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Customer;
 import com.example.demo.service.CustomerService;
+import com.example.demo.service.ReportService;
+
+import net.sf.jasperreports.engine.JRException;
 @CrossOrigin(origins = "http://localhost:4200")
 
 @RestController
@@ -44,5 +48,12 @@ public class CustomerController {
 	public void deleteCustomer(@PathVariable("id") Integer id){
 		
 		 customerService.deleteById(id);
+	}
+	@Autowired
+	ReportService reportService;
+	
+	@GetMapping("/downloadReport/{format}")
+	public String generateReport(@PathVariable String format) throws FileNotFoundException, JRException{
+		return reportService.exportReport(format);
 	}
 }

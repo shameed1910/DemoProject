@@ -38,7 +38,7 @@ public class CustomerController {
 	public List<Customer> getCustomer(){
 		return customerService.getCustomer();
 	}
-	
+	//update customer
 	@PutMapping(value="/updateUser")
 	public Customer updateCustomer(@RequestBody Customer customer){
 		return customerService.update(customer, customer.getId());

@@ -17,10 +17,11 @@ import com.example.demo.config.JwtTokenUtil;
 import com.example.demo.pojo.JwtRequest;
 import com.example.demo.pojo.JwtResponse;
 import com.example.demo.service.UserDetailServiceImpl;
-@CrossOrigin(origins = "http://localhost:4200")
 
 
 @RestController
+//@CrossOrigin(origins = "http://localhost:4200",maxAge = 3600)
+
 public class JwtAuthController {
 
 	

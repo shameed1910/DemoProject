@@ -19,9 +19,10 @@ import com.example.demo.service.CustomerService;
 import com.example.demo.service.ReportService;
 
 import net.sf.jasperreports.engine.JRException;
-@CrossOrigin(origins = "http://localhost:4200")
 
 @RestController
+//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+
 //@RequestMapping("/customer")
 public class CustomerController {
 	
@@ -34,7 +35,7 @@ public class CustomerController {
 	}
 
 	//To get the list of customers
-	@GetMapping(value="/getUsers")
+	@GetMapping(produces = "application/json",value="/getUsers")
 	public List<Customer> getCustomer(){
 		return customerService.getCustomer();
 	}

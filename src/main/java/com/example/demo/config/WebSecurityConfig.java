@@ -61,13 +61,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 
+
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		// We don't need CSRF for this example
-		httpSecurity.csrf().disable()
+		httpSecurity.csrf().disable().
 				// dont authenticate this particular request
-				.authorizeRequests().antMatchers("/authenticate","/register").permitAll().antMatchers(HttpMethod.OPTIONS, "/**")
-				.permitAll().
+				authorizeRequests().antMatchers("/authenticate").permitAll().
+				antMatchers("/register").permitAll().
+				antMatchers(HttpMethod.OPTIONS, "/**").permitAll().
 				
 				// all other requests need to be authenticated
 				anyRequest().authenticated().and().
@@ -78,7 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-		
+
 		// httpSecurity.addFilter(Dig)
 	}
 }

@@ -9,16 +9,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
-@CrossOrigin(origins = "http://localhost:4200")
 
 @RestController
-@RequestMapping("/register")
+//@CrossOrigin(origins = "http://localhost:4200",maxAge = 3600)
 public class UserController {
 
 	@Autowired
 	UserService userService;
 
-	@PostMapping(value = "/insert")
+	@PostMapping(value = "/register")
 	public void createCustomer(@RequestBody User user) {
 		userService.create(user);
 	}

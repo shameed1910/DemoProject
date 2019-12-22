@@ -2,10 +2,13 @@ package com.example.demo.service;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +33,7 @@ public class ReportService {
     private CustomerRepository repository;
 
 
-    public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
+    public byte[] exportReport(String reportFormat) throws FileNotFoundException, JRException,Exception {
         String path = "D:\\Reports";
         List<Customer> customers = repository.findAll();
         //load file and compile it
@@ -42,12 +45,22 @@ public class ReportService {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         if (reportFormat.equalsIgnoreCase("html")) {
             JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\customer.html");
+
         }
         if (reportFormat.equalsIgnoreCase("pdf")) {
             JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\customer.pdf");
         }
 
-        return "report generated in path : " + path;
+        //return "report generated in path : " + path;
+        byte[] bytes = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
+
+        return bytes;
+
     }
+	private byte[] contentOf(String fileName) throws Exception {
+		return Files.readAllBytes( Paths.get(getClass().getClassLoader().getResource(fileName).toURI()));
+	}
+
+    
 
 }

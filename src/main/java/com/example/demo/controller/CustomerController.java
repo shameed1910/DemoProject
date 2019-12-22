@@ -63,10 +63,9 @@ public class CustomerController {
 		return reportService.exportReport(format);
 	}*/
 	@GetMapping("/downloadReport/{format}")
-	public  @ResponseBody byte[] generateReport(@PathVariable String format,String fileName,HttpServletResponse res) throws FileNotFoundException, JRException,Exception{
-		res.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-		res.getOutputStream().write(contentOf(fileName));
-		return reportService.exportReport(format);
+	public  String generateReport(@PathVariable String format,HttpServletResponse res) throws FileNotFoundException, JRException,Exception{
+		return reportService.exportReport(format,res);
+
 		
 
 	}

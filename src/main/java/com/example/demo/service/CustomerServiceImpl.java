@@ -25,7 +25,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public List<Customer> getCustomer() {
-		return (List<Customer>) repository.findAll();
+		
+		List<Customer> customers=repository.findAll();
+		customers.forEach(customer->System.out.println(customer.getName()));
+
+		return customers;
 	}
 
 	@Override

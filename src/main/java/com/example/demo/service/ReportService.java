@@ -33,8 +33,9 @@ public class ReportService {
     private CustomerRepository repository;
 
 
-    public String exportReport(String reportFormat,HttpServletResponse res) throws FileNotFoundException, JRException,Exception {
-        String path = "D:\\Reports";
+    public String exportReport(String reportFormat) throws FileNotFoundException, JRException,Exception {
+       // String path = "D:\\Reports";
+    	 String path = "C:\\Users\\USER\\Downloads\\demo\\src\\main\\resources";
         List<Customer> customers = repository.findAll();
         //load file and compile it
         File file = ResourceUtils.getFile("classpath:Customer.jrxml");
@@ -45,14 +46,14 @@ public class ReportService {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         if (reportFormat.equalsIgnoreCase("html")) {
             JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\customer.html");
-            byte[] bytes = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
-    		res.getOutputStream().write(contentOf("\\customer.html"));
+            //byte[] bytes = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
         }
         if (reportFormat.equalsIgnoreCase("pdf")) {
             JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\customer.pdf");
-            byte[] bytes = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
-    		res.getOutputStream().write(contentOf("\\customer.pdf"));
+           // byte[] bytes = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
+
         }
+
 
         return "report generated in path : " + path;
 /*        byte[] bytes = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
@@ -61,6 +62,10 @@ public class ReportService {
         //return bytes;
 
     }
+	public void downloadFile(String fileName, HttpServletResponse res) throws Exception {
+		res.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+		res.getOutputStream().write(contentOf(fileName));
+	}
 	private byte[] contentOf(String fileName) throws Exception {
 		return Files.readAllBytes( Paths.get(getClass().getClassLoader().getResource(fileName).toURI()));
 	}

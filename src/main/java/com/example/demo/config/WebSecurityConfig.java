@@ -70,6 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				authorizeRequests().antMatchers("/authenticate").permitAll().
 				antMatchers("/register").permitAll().
 				antMatchers("/downloadReport").permitAll().
+				antMatchers("/download").permitAll().
 
 				antMatchers(HttpMethod.OPTIONS, "/**").permitAll().
 				

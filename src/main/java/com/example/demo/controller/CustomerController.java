@@ -8,15 +8,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Customer;
@@ -62,14 +59,14 @@ public class CustomerController {
 	public String generateReport(@PathVariable String format) throws FileNotFoundException, JRException{
 		return reportService.exportReport(format);
 	}*/
-	@GetMapping("/downloadReport/{format}")
-	public  String generateReport(@PathVariable String format,HttpServletResponse res) throws FileNotFoundException, JRException,Exception{
-		return reportService.exportReport(format,res);
+/*	@GetMapping("/downloadReport/{format}")
+	public  String generateReport(@PathVariable String format) throws FileNotFoundException, JRException,Exception{
+		return reportService.exportReport(format);
 
 		
 
 	}
-	@GetMapping("/download")
+*/	@GetMapping("/download")
 	public void downloadFile(String fileName, HttpServletResponse res) throws Exception {
 		res.setHeader("Content-Disposition", "attachment; filename=" + fileName);
 		res.getOutputStream().write(contentOf(fileName));
